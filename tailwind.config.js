@@ -31,6 +31,7 @@ export const theme = {
       chessSquare: {
         DEFAULT: "hsl(var(--chess-square-light))",
         secondary: "hsl(var(--chess-square-dark))",
+        highlight: "hsla(var(--chess-square-highlight))",
       },
       secondary: {
         DEFAULT: "hsl(var(--secondary))",

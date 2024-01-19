@@ -4,11 +4,11 @@ import {
   SelectItemIndicator,
   type SelectItemProps,
   SelectItemText,
-} from 'radix-vue'
-import { Check } from 'lucide-vue-next'
-import { cn } from '@/lib/utils'
+} from "radix-vue";
+import { Check } from "lucide-vue-next";
+import { cn } from "@/lib/utils";
 
-const props = defineProps<SelectItemProps & { class?: string }>()
+const props = defineProps<SelectItemProps & { class?: string }>();
 </script>
 
 <template>

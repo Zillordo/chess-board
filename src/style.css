@@ -9,6 +9,7 @@
 
     --chess-square-light: 209 77% 95%;
     --chess-square-dark: 209 77% 15%;
+    --chess-square-highlight: 354, 50%, 50%, 0.8;
 
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
