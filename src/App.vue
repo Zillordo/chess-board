@@ -1,26 +1,26 @@
 <script setup lang="ts">
-import { watch, reactive } from "vue";
-import ChessBoard from "./components/chess-board/ChessBoard.vue";
+import { computed, ref } from "vue";
+import ChessBoard from "@/components/chess-board/ChessBoard.vue";
+import MovesSidebar from "@/components/moves-sidebar/MovesSidebar.vue";
 
-const chessBoardState = reactive<{ sequence: string[] }>({ sequence: [] });
+const sequence = ref<string[]>([]);
 
-watch(chessBoardState, (sequence) => {
-  console.log(
-    "sequence: ",
-    sequence.sequence.map((t) => t),
-  );
+const movesFromSequence = computed(() => {
+  const arr = sequence.value;
+  const tuple = [];
+  for (let i = 0; i < arr.length; i += 2) {
+    tuple.push([arr[i], arr[i + 1]]);
+  }
+  return tuple;
 });
 </script>
 
 <template>
-  <div class="grid grid-cols-[minmax(200px,_auto)_1fr] h-svh w-svw">
-    <div>
-      {{ chessBoardState.sequence }}
-    </div>
-    <div class="flex items-center justify-center p-8">
-      <ChessBoard
-        :on-square-click="(position) => chessBoardState.sequence.push(position)"
-      />
-    </div>
+  <div
+    class="grid grid-rows-[1fr__minmax(300px,_0.2fr)] md:grid-rows-1 lg:grid-cols-[1fr_minmax(400px,_0.2fr)] md:grid-cols-[1fr_minmax(300px,_0.2fr)] h-full"
+  >
+    <ChessBoard :on-square-click="(squareCode) => sequence.push(squareCode)" />
+
+    <MovesSidebar :moves="movesFromSequence" />
   </div>
 </template>
