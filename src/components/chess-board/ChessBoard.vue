@@ -1,52 +1,57 @@
 <script setup lang="ts">
-import { VNodeRef, onMounted, onUnmounted, reactive, ref } from "vue";
+import { VNodeRef, onMounted, onUnmounted, ref } from "vue";
 import { CHESSBOARD_AXIS } from "./config.ts";
-
-type ChessBoardStateType = {
-  resizeObserver: ResizeObserver | null;
-  dimension?: number;
-  highlightedSquares?: string[];
-};
 
 const props = defineProps<{ onSquareClick: (squareCode: string) => void }>();
 
 const boardRef = ref<VNodeRef | null>(null);
-const chessBoardState = reactive<ChessBoardStateType>({
-  resizeObserver: null,
-  highlightedSquares: [],
-});
+const resizeObserver = ref<ResizeObserver | null>(null);
+const highlightedSquares = ref<string[]>([]);
+const dimension = ref<number>();
+
+const isSquareDark = (xIndex: number, yIndex: number) =>
+  xIndex % 2 !== yIndex % 2;
+
+const onSquareClick = (squareCode: string) => {
+  props.onSquareClick(squareCode);
+  highlightedSquares.value = [];
+};
+
+const getSquareClasses = (xIndex: number, yIndex: number) => {
+  const isDark = isSquareDark(xIndex, yIndex);
+  return {
+    "bg-chessSquare-secondary": isDark,
+    "bg-chessSquare": !isDark,
+  };
+};
+
+const getTextClasses = (xIndex: number, yIndex: number) => {
+  const isDark = isSquareDark(xIndex, yIndex);
+  return {
+    "text-chessSquare": isDark,
+    "text-chessSquare-secondary": !isDark,
+  };
+};
 
 onMounted(() => {
   const element = boardRef.value as HTMLElement;
 
-  chessBoardState.resizeObserver = new ResizeObserver((entries) => {
+  // resize observer to keep the chessboards dimensions fit to the screen (get discunnected on unmount)
+  resizeObserver.value = new ResizeObserver((entries) => {
     const entry = entries[0];
 
-    chessBoardState.dimension = Math.min(
+    dimension.value = Math.min(
       entry.contentRect.width,
       entry.contentRect.height,
     );
   });
 
-  chessBoardState.resizeObserver.observe(element);
+  resizeObserver.value.observe(element);
 });
 
 onUnmounted(() => {
-  chessBoardState.resizeObserver?.disconnect();
+  resizeObserver.value?.disconnect();
 });
-
-const isDarkSquare = (xIndex: number, yIndex: number) =>
-  (xIndex % 2 !== 0 && yIndex % 2 === 0) ||
-  (xIndex % 2 === 0 && yIndex % 2 !== 0);
-
-const isLightSquare = (xIndex: number, yIndex: number) =>
-  (yIndex % 2 === 0 && xIndex % 2 === 0) ||
-  (yIndex % 2 !== 0 && xIndex % 2 !== 0);
-
-const onSquareClick = (squareCode: string) => {
-  props.onSquareClick(squareCode);
-  chessBoardState.highlightedSquares = [];
-};
 </script>
 
 <template>
@@ -56,8 +61,8 @@ const onSquareClick = (squareCode: string) => {
   >
     <div
       :style="{
-        width: `${chessBoardState.dimension}px`,
-        height: `${chessBoardState.dimension}px`,
+        width: `${dimension}px`,
+        height: `${dimension}px`,
       }"
       class="grid grid-cols-8 grid-rows-8 grid-flow-row-dense select-none shadow"
     >
@@ -65,39 +70,31 @@ const onSquareClick = (squareCode: string) => {
         <div
           v-for="(ySquare, yIndex) in CHESSBOARD_AXIS.y"
           class="w-full h-full relative"
-          :class="{
-            'bg-chessSquare-secondary': isLightSquare(xIndex, yIndex),
-            'bg-chessSquare': isDarkSquare(xIndex, yIndex),
-          }"
+          :class="getSquareClasses(xIndex, yIndex)"
           @click="() => onSquareClick(xSquare + ySquare)"
-          @contextmenu.prevent="
-            () => chessBoardState.highlightedSquares?.push(xSquare + ySquare)
-          "
+          @contextmenu.prevent="highlightedSquares?.push(xSquare + ySquare)"
         >
           <div
             class="w-full h-full"
             :class="{
-              'bg-chessSquare-highlight':
-                chessBoardState.highlightedSquares?.includes(xSquare + ySquare),
+              'bg-chessSquare-highlight': highlightedSquares?.includes(
+                xSquare + ySquare,
+              ),
             }"
           >
             <div
-              :class="{
-                'text-chessSquare': isLightSquare(xIndex, yIndex),
-                'text-chessSquare-secondary': isDarkSquare(xIndex, yIndex),
-              }"
+              v-if="ySquare === '1'"
+              :class="getTextClasses(xIndex, yIndex)"
               class="absolute bottom-[3px] right-[5px] text-lg"
             >
-              {{ ySquare === "1" ? xSquare : "" }}
+              {{ xSquare }}
             </div>
             <div
-              :class="{
-                'text-chessSquare': isLightSquare(xIndex, yIndex),
-                'text-chessSquare-secondary': isDarkSquare(xIndex, yIndex),
-              }"
+              v-if="xSquare === 'a'"
+              :class="getTextClasses(xIndex, yIndex)"
               class="absolute top-[4px] left-[5px] text-lg"
             >
-              {{ xSquare === "a" ? ySquare : "" }}
+              {{ ySquare }}
             </div>
           </div>
         </div>
