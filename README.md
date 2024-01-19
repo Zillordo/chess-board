@@ -1,18 +1,23 @@
-# Vue 3 + TypeScript + Vite
+# Chessboard for chess.com
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+## How to Start
 
-## Recommended IDE Setup
+1. `npm install`
+2. `npm run dev`
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+## How to use
 
-## Type Support For `.vue` Imports in TS
+1. App renders chess board with a left side panel
+2. Each square when clicked, will be recorded as a position of {1-8} number plus {a-h} letters
+3. Adding number of moves that will not fit to the element will make the moves section scrollable and it keeps the scroll pinned to the bottom
+4. It will be displayed on the right side panel as chess moves would
+5. With a right click (or ctrl + click) the square gets highlighted with red. Click anywhere on the board will reset the highlight
+6. Chessboard has different themes which can be selected from the bottom select of the right side panel
+7. The whole page has dark and light themes which can be toggled with the (sun/moon) button at the right side panel
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+## Technologies used
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
-
-1. Disable the built-in TypeScript Extension
-   1. Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-   2. Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+1. Vite: I have use Vite as it provides fast and easy setup for the project.
+2. Vue: As per task request I have used Vue framework for this application
+3. Tailwind: I have decided to use tailwind as it provides easy and reusable design system with a lot of variability. It has allowed me to setup simple css variables that I can use with tailwind to easily change the dark/light theme or chessboard theme.
+4. Radix-vue: As I have some experience with using radix in react and it provides great headless components. (Select)
