@@ -41,7 +41,7 @@ const getTextClasses = (xIndex: number, yIndex: number) => {
       @contextmenu.prevent="highlightedSquares?.push(xSquare + ySquare)"
     >
       <div
-        class="w-full h-full md:text-lg 2xl:text-4xl text-sm"
+        class="w-full h-full md:text-lg text-sm"
         :class="{
           'bg-chessSquare-highlight': highlightedSquares?.includes(
             xSquare + ySquare,
