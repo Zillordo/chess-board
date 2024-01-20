@@ -2,7 +2,7 @@
 import { localStorageUtil } from "@/lib/local-storage";
 import { onMounted, ref, watch } from "vue";
 import { Toggle } from "radix-vue";
-import { SunIcon, MoonIcon } from "@heroicons/vue/24/solid";
+import { SunIcon, MoonIcon } from "lucide-vue-next";
 
 const storageKey = "dark-mode";
 const toggleState = ref<boolean>(false);

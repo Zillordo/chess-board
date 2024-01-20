@@ -37,7 +37,7 @@ onMounted(() => {
 <template>
   <Select v-model="theme">
     <SelectTrigger class="w-full">
-      <SelectValue placeholder="Select a theme" />
+      <SelectValue placeholder="Select a chess board theme" />
     </SelectTrigger>
     <SelectContent>
       <SelectGroup>

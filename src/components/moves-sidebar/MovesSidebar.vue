@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ThemeSelect from "@/components/theme-select/ThemeSelect.vue";
+import ChessBoardThemeSelect from "@/components/chess-board-theme-select/ChessBoardThemeSelect.vue";
 import LightDarkToggle from "@/components/light-dark-toggle/LightDarkToggle.vue";
 import { ref, watch } from "vue";
 
@@ -59,7 +59,7 @@ watch(
     </div>
 
     <div class="px-4 py-5 bg-muted border-t flex">
-      <ThemeSelect />
+      <ChessBoardThemeSelect />
       <LightDarkToggle class="p-2 pr-0" />
     </div>
   </div>
