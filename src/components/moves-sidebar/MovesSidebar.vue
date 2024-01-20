@@ -7,6 +7,8 @@ const props = defineProps<{ moves: string[][] }>();
 
 const scrollElementRef = ref<HTMLElement | null>(null);
 
+// Set up a watcher on the last move in the moves prop
+// Whenever the last move changes, scroll to the bottom of the element
 watch(
   () => props.moves.at(-1),
   () => {
@@ -15,7 +17,6 @@ watch(
       ref.scrollTo(0, ref.scrollHeight);
     }
   },
-  { deep: true },
 );
 </script>
 

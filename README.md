@@ -11,7 +11,7 @@
 2. Each square when clicked, will be recorded as a position of {1-8} number plus {a-h} letters
 3. Adding number of moves that will not fit to the element will make the moves section scrollable and it keeps the scroll pinned to the bottom
 4. It will be displayed on the right side panel as chess moves would
-5. With a right click (or ctrl + click) the square gets highlighted with red. Click anywhere on the board will reset the highlight
+5. With a right click (or ctrl + click, on mobile its long press) the square gets highlighted with red. Click anywhere on the board will reset the highlight
 6. Chessboard has different themes which can be selected from the bottom select of the right side panel
 7. The whole page has dark and light themes which can be toggled with the (sun/moon) button at the right side panel
 
